@@ -1,0 +1,26 @@
+{
+    "name": "hyprofile",
+    "version": "0.1.0",
+    "description": "A scheme to describe Hypermedia APIs",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "hypermedia",
+        "siren",
+        "hal"
+    ],
+    "author": "Michael M. Tiller",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/jest": "^22.2.3",
+        "jest": "^22.4.3",
+        "ts-jest": "^22.4.4",
+        "typescript": "^2.8.3"
+    },
+    "dependencies": {
+        "@xogeny/ts-schema": "^0.1.0",
+        "json-schema-to-typescript": "^5.4.0"
+    }
+}
