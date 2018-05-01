@@ -1,20 +1,34 @@
 import * as React from "react";
-import { Profile } from "../profile";
-import { ProfileTypes } from "../types";
+import { ElaboratedProfile } from "../elaborate";
 
-export function rootElement(profile: Profile, types: ProfileTypes) {
+export function rootElement(profile: ElaboratedProfile, svg: string) {
     return (
         <div>
             <h1>Documentation</h1>
             <h2>Resources</h2>
-            {Object.keys(types.resources).map(key => (
-                <div>
+            {profile.resources.map((res, i) => (
+                <div key={i}>
                     <h3>
-                        <code>{key}</code>
+                        Resource:{" "}
+                        <code>
+                            {res.resource} {res.title && <span>({res.title})</span>}{" "}
+                        </code>
                     </h3>
-                    <pre>{types.resources[key]}</pre>
+                    {res.description && <p>{res.description}</p>}
+                    <div style={{ display: "flex" }}>
+                        <div>
+                            <h5>Type Definition</h5>
+                            <pre>{res.typedef}</pre>
+                        </div>
+                        <div>
+                            <h5>Diagram</h5>
+                            <div dangerouslySetInnerHTML={{ __html: res.diagram }} />
+                        </div>
+                    </div>
                 </div>
             ))}
+            <h3>Complete Resource-Relation Diagram</h3>
+            <div dangerouslySetInnerHTML={{ __html: svg }} />
         </div>
     );
 }

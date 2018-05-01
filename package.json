@@ -22,9 +22,14 @@
         "typescript": "^2.8.3"
     },
     "dependencies": {
+        "@types/camelcase": "^4.1.0",
         "@xogeny/ts-schema": "^0.1.0",
+        "camelcase": "^5.0.0",
         "json-schema-to-typescript": "^5.4.0",
+        "node-plantuml": "^0.6.2",
         "react": "^16.3.2",
-        "react-dom": "^16.3.2"
+        "react-dom": "^16.3.2",
+        "stream-to-buffer": "^0.1.0",
+        "yuml2svg": "^3.1.0"
     }
 }

@@ -1,11 +1,15 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { rootElement } from "./root";
-import { generateTypes } from "../types";
 import { Profile } from "../profile";
+import { elaborate } from "../elaborate";
+import * as fs from "fs";
+import { renderSVG } from "../elaborate/diagrams";
 
 export async function generateDocumentation(profile: Profile) {
-    let types = await generateTypes(profile);
-    let root = rootElement(profile, types);
+    let eprofile = await elaborate(profile);
+    let svg = await renderSVG(eprofile, new RegExp(".*"));
+    let root = rootElement(eprofile, svg.toString());
     let result = renderToStaticMarkup(root);
+    fs.writeFileSync("documentation.html", result);
     return result;
 }
