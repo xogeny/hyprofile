@@ -10,6 +10,7 @@ describe("Test Documentation Generation", () => {
         let eprofile = await hyprofile.elaborate(profile);
         await hyprofile.generateDocumentation(eprofile, generator);
         await hyprofile.generateCode(eprofile, generator);
+        await hyprofile.generateSchemas(eprofile, generator);
         expect(generator.files).toMatchSnapshot();
     });
 });

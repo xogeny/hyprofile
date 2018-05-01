@@ -111,5 +111,24 @@ Default Encoding: UTF-8
 Language: en
 Country: US
 --></g></svg></div></div>",
+  "types.ts": "
+export interface Order {
+  /**
+   * Order number used to cross reference with database and accounting
+   */
+  orderNumber: number;
+  itemCount: number;
+  status: \\"submitted\\" | \\"pending\\" | \\"completed\\";
+}
+
+export interface OrderItems {
+  [k: string]: any;
+}
+
+export interface Customer {
+  customerId: string;
+  name: string;
+}
+",
 }
 `;
