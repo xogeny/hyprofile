@@ -2,6 +2,7 @@ import { Profile, ClassProfile, resolveSchema } from "../profile";
 import { compile } from "json-schema-to-typescript";
 import { dereference } from "json-schema-to-typescript/dist/src/resolver";
 import { renderSVG } from "./diagrams";
+import { JSONSchema4 } from "json-schema";
 
 export interface ElaboratedPropertyProfile {
     id: string;
@@ -14,6 +15,7 @@ export interface ElaboratedClassProfile {
     resource: string;
     typedef: string;
     diagram: string;
+    schema: JSONSchema4;
     title: string | undefined;
     description: string | undefined;
     properties: ElaboratedPropertyProfile[];
@@ -60,7 +62,7 @@ export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
                         id: pkey,
                         type: type,
                         description: props.description,
-                        required: props.required ? props.required.indexOf(pkey) >= 0 : false,
+                        required: rschema.required ? rschema.required.indexOf(pkey) >= 0 : false,
                     };
                 } else {
                     throw new Error("This shouldn't happen");
@@ -71,6 +73,7 @@ export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
                 typedef: type,
                 diagram: "",
                 title: cp.title,
+                schema: rschema,
                 description: cp.description,
                 properties: props,
             });

@@ -17,16 +17,18 @@ function generatePlantUML(profile: ElaboratedProfile, resname: RegExp): string {
     let relations = profile.relations.filter(rel => resname.test(rel.to) || resname.test(rel.from));
     let resources = profile.resources.filter(res => resname.test(res.resource));
 
+    let processName = (name: string) => `"${name}"`;
+
     let classes = resources.map(res => {
-        let header = `interface ${camelCase(res.resource)}`;
+        let header = `interface ${processName(res.resource)}`;
         let props = res.properties.map(prop => {
             let qual = prop.required ? "" : "?";
-            return `${camelCase(res.resource)} : ${prop.id}${qual} : ${prop.type}`;
+            return `${processName(res.resource)} : ${prop.id}${qual} : ${prop.type}`;
         });
         return [header, ...props].join("\n");
     });
     let rels = relations.map(rel => {
-        return `${camelCase(rel.from)} --> ${camelCase(rel.to)} : ${rel.rel}`;
+        return `${processName(rel.from)} --> ${processName(rel.to)} : ${rel.rel}`;
     });
     let ret = [...classes, ...rels].join("\n");
     return ret;
