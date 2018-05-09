@@ -1,5 +1,12 @@
 # What is this?
 
+**This is a Work in Progress** that I've posted here to collect feedback.
+Nothing here is remotely production ready. It is entirely a proof of concept.
+
+If you have feedback, add it as an issue.
+
+## Background
+
 After some discussions at RestFest 2018 in Grand Rapids, I thought it would be
 interesting to explore ways to specify hypermedia APIs.
 
