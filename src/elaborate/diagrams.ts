@@ -1,7 +1,6 @@
 import { ElaboratedProfile } from "./eprofile";
 const stb = require("stream-to-buffer");
 const plantuml = require("node-plantuml");
-import camelCase from "camelcase";
 
 async function streamToBuffer(stream: NodeJS.ReadStream): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
@@ -25,7 +24,10 @@ function generatePlantUML(profile: ElaboratedProfile, resname: RegExp): string {
             let qual = prop.required ? "" : "?";
             return `${processName(res.resource)} : ${prop.id}${qual} : ${prop.type}`;
         });
-        return [header, ...props].join("\n");
+        let actions = res.actions.map(action => {
+            return `${processName(res.resource)} : ${action.id}()`;
+        });
+        return [header, ...props, ...actions].join("\n");
     });
     let rels = relations.map(rel => {
         return `${processName(rel.from)} --> ${processName(rel.to)} : ${rel.rel}`;

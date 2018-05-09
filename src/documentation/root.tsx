@@ -17,8 +17,11 @@ export function rootElement(profile: ElaboratedProfile, svg: string) {
                     {res.description && <p>{res.description}</p>}
                     <div style={{ display: "flex" }}>
                         <div>
-                            <h5>Type Definition</h5>
+                            <h5>Type Definitions</h5>
+                            <h6>Properties</h6>
                             <pre>{res.typedef}</pre>
+                            <h6>Payloads</h6>
+                            <pre>{res.actions.map(act => act.payloadDef).join("\n")}</pre>
                         </div>
                         <div>
                             <h5>Diagram</h5>

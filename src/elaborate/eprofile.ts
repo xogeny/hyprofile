@@ -1,6 +1,5 @@
 import { Profile, ClassProfile, resolveSchema } from "../profile";
 import { compile } from "json-schema-to-typescript";
-import { dereference } from "json-schema-to-typescript/dist/src/resolver";
 import { renderSVG } from "./diagrams";
 import { JSONSchema4 } from "json-schema";
 
@@ -11,6 +10,14 @@ export interface ElaboratedPropertyProfile {
     required: boolean;
 }
 
+export interface ElaboratedActionProfile {
+    id: string;
+    title: string | undefined;
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
+    fields: JSONSchema4;
+    payloadDef: string;
+}
+
 export interface ElaboratedClassProfile {
     resource: string;
     typedef: string;
@@ -19,6 +26,7 @@ export interface ElaboratedClassProfile {
     title: string | undefined;
     description: string | undefined;
     properties: ElaboratedPropertyProfile[];
+    actions: ElaboratedActionProfile[];
 }
 
 export interface ElaboratedRelationProfile {
@@ -49,33 +57,56 @@ export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
         for (let key of resources) {
             let resname = resourceName(key);
             let cp: ClassProfile = profile.resources[key];
-            let schema = resolveSchema(cp.properties || {}, resname, profile);
-            let rschema = await dereference(schema, process.cwd());
-            let type = await compile(schema, resname, {
+            let schema = await resolveSchema(cp.properties || {}, profile);
+            let type = await compile(schema, `${resname}-props`, {
                 bannerComment: "",
             });
-            let props = Object.keys(rschema.properties || {}).map((pkey): ElaboratedPropertyProfile => {
-                if (rschema.properties) {
-                    let props = rschema.properties[pkey];
+            let props = Object.keys(schema.properties || {}).map((pkey): ElaboratedPropertyProfile => {
+                if (schema.properties) {
+                    let props = schema.properties[pkey];
                     let type = typeof props.type === "string" ? props.type : "array";
                     return {
                         id: pkey,
                         type: type,
                         description: props.description,
-                        required: rschema.required ? rschema.required.indexOf(pkey) >= 0 : false,
+                        required: schema.required ? schema.required.indexOf(pkey) >= 0 : false,
                     };
                 } else {
                     throw new Error("This shouldn't happen");
                 }
             });
+            let actions: ElaboratedActionProfile[] = [];
+            if (cp.actions) {
+                let cacts = cp.actions;
+                let actionIds = Object.keys(cp.actions || {});
+                actions = await Promise.all(
+                    actionIds.map(async action => {
+                        let act = cacts[action];
+                        let fields: JSONSchema4 = act.fields
+                            ? await resolveSchema(act.fields, profile)
+                            : { type: "object", additionalProperties: true };
+                        return {
+                            id: action,
+                            title: act.title,
+                            method: act.method || "GET",
+                            fields: fields,
+                            payloadDef: await compile(fields, action + "-payload", {
+                                bannerComment: "",
+                            }),
+                        };
+                    }),
+                );
+            }
+
             ret.resources.push({
                 resource: resname,
                 typedef: type,
                 diagram: "",
                 title: cp.title,
-                schema: rschema,
+                schema: schema,
                 description: cp.description,
                 properties: props,
+                actions: actions,
             });
         }
     }

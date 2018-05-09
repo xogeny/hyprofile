@@ -8,6 +8,7 @@ describe("Test Documentation Generation", () => {
         let profile = hyprofile.Samples.sample1;
         let generator = new MemoryWriter("outputDirectory");
         let eprofile = await hyprofile.elaborate(profile);
+        await generator.writeFile("profile.json", JSON.stringify(profile, null, 4));
         await hyprofile.generateDocumentation(eprofile, generator);
         await hyprofile.generateCode(eprofile, generator);
         await hyprofile.generateSchemas(eprofile, generator);

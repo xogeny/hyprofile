@@ -24,13 +24,13 @@ export namespace Samples {
                         title: "Add Item",
                         method: "POST",
                         type: "application/x-www-form-urlencoded",
-                        fields: { $ref: "#/schemas/add-item" },
+                        fields: "add-item",
                     },
                 },
             },
             "order-items": {},
             customer: {
-                properties: { $ref: "#/schemas/customer-properties" },
+                properties: "customer-properties",
             },
         },
         relations: {
@@ -48,7 +48,7 @@ export namespace Samples {
                 type: "object",
                 properties: {
                     orderNumber: { type: "number" },
-                    productCode: { type: "text" },
+                    productCode: { type: "string" },
                     quantity: { type: "number" },
                 },
                 additionalProperties: false,
