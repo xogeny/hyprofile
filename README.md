@@ -21,6 +21,16 @@ encapsulated on the server as possible and have the presence of resources,
 relations and actions to indicate what is allowed by the client (in the context
 of authentication, _etc._).
 
+## Running
+
+If you have Node and `yarn` installed, all you really need to do to play around with this
+is run `yarn install` (to install all dependencies) and then run `yarn test`.
+The tests are currently really slow (due to enormous snapshots in the tests).
+But running the tests will generate output in a directly called
+`./outputDirectory`. You can then play around with the contents of `sample.ts`
+and rerun the tests (which will then start to fail, but you can ignore that) and
+you'll get updated output in `./outputDirectory`.
+
 ## Rationale
 
 There are many things that I think we could simultaneously achieve with such a
