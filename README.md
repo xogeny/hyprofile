@@ -3,6 +3,13 @@
 **This is a Work in Progress** that I've posted here to collect feedback.
 Nothing here is remotely production ready. It is entirely a proof of concept.
 
+In an nutshell, I'm playing around with a format for describing Hypermedia APIs.  The goal is to identify
+the relevant resources, relations and actions in the API.  In addition to identifying the relevant
+resources, relationa and actions additional details are provided in the descriptions (via
+JSON-Schema) of the "shape" of both resource data and action payloads.  From these descriptions, tools
+can be created that generate various things like type definitions, diagrams, run-time validation and
+domain specific client code.
+
 If you have feedback, add it as an issue.
 
 ## Background
