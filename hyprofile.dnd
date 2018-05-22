@@ -1,0 +1,20 @@
+external resource _ "external_resource*" {}
+
+resource _ "resource*" {
+    prop _(required={ "type": "boolean" }) = {} "prop*";
+
+    relation _ "relation*" {
+        to _ "target+";
+    }
+
+    action _(method={ "type": "string", "enum": ["POST", "PATCH", "PUT"] }) "payload_action*" {
+        payload = { } "payload?";
+        response = { } "bare_response*";
+        response(code={ "type": "number" }) = { } "status_response*";
+    }
+
+    action _(method={ "type": "string", "enum": ["GET", "DELETE"] }) "bare_action*" {
+        response = { } "bare_response*";
+        response(code={ "type": "number" }) = { } "status_response*";
+    }
+}

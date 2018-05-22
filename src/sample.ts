@@ -63,5 +63,8 @@ export namespace Samples {
                 additionalProperties: false,
             },
         },
+        // import: {
+        //     "other": "./other.json",
+        // }
     };
 }

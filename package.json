@@ -4,13 +4,10 @@
     "description": "A scheme to describe Hypermedia APIs",
     "main": "lib/index.js",
     "scripts": {
+        "ex1": "denada ./example1.hyp -g hyprofile.dnd",
         "test": "jest"
     },
-    "keywords": [
-        "hypermedia",
-        "siren",
-        "hal"
-    ],
+    "keywords": ["hypermedia", "siren", "hal"],
     "author": "Michael M. Tiller",
     "license": "MIT",
     "devDependencies": {
@@ -25,6 +22,7 @@
         "@types/camelcase": "^4.1.0",
         "@xogeny/ts-schema": "^0.1.0",
         "camelcase": "^5.0.0",
+        "denada": "0.9.0-rc3",
         "json-schema-to-typescript": "^5.4.0",
         "node-plantuml": "^0.6.2",
         "react": "^16.3.2",

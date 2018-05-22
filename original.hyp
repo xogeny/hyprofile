@@ -1,0 +1,64 @@
+enum PetStatus {
+  available, pending, sold
+}
+
+enum OrderStatus {
+  placed, approved, delivered
+}
+
+resource Pet {
+  name: String!
+  status: PetStatus
+  category: Category
+  tags: [Tag] @relTitle(name)
+  photos: [Image]
+}
+
+resource Orders {
+  orders: [Order]!
+  @post: Order
+}
+
+resource Order {
+  pet: Pet
+  quantity: Int!
+  status: OrderStatus!
+  shipDate: String
+  complete: Boolean
+
+  @post completeOrder
+  @post sendConfirmationEmail(confirmationEmailParams)
+}
+
+type confirmationEmailParams {
+  personalMessage: String
+}
+
+collection Users(User)
+resource User {
+  username: String!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  phone: String
+
+  @put self(User)
+  @delete self
+}
+
+resource Home @home {
+  findOrder: Order {
+    id: String!
+  }
+  orders: Orders {
+    perPage: Int
+  }
+  pets: Pets {
+    perPage: Int
+  }
+  searchPets: Pets {
+    query: String!
+    perPage: Int
+  }
+}

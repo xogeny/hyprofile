@@ -1,0 +1,46 @@
+external resource Image {}
+
+resource Category {
+    prop name(required=true) = {"type": "string"};
+}
+
+resource Tag {
+    prop name(required=true) = {"type": "string"};
+}
+
+resource Pets {
+    prop pets(required=true) = { "type": "array", "items": [{ "$ref": "#Pet" }] };
+    action addPet(method="POST") {
+        payload = { "$ref": "#Pet" };
+        response(code=200) = { "$ref": "#Pet" };
+    }
+}
+
+resource Pet {
+    prop name(required=true) = {"type": "string"};
+    prop status = { "type": "string", "enum": ["available", "pending", "sold"] };
+    prop category = { "type": "string" };
+    prop tags = { "type": "array", "items": [{ "type": "string" }]};
+    
+    relation photo {
+        to Image;
+    }
+}
+
+resource Order {
+    prop pet = { "$ref": "#Pet" };
+    prop quanity(required=true) = { "type": "number", "min": 0 };
+    prop status(required=true) = { "type": "string", "enum": ["placed", "approved", "delivered"] };
+    prop shipData = { "type": "string" };
+    prop complete = { "type": "boolean" };
+
+    action completeOrder(method="POST") {}
+    action sendConfirmationEmail(method="POST") {
+        payload = {
+            "type": "object",
+            "properties": {
+                "personalMessage": { "type": "string" }
+            }
+        };
+    }
+}
