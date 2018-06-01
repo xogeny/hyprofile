@@ -3,10 +3,10 @@
 **This is a Work in Progress** that I've posted here to collect feedback.
 Nothing here is remotely production ready. It is entirely a proof of concept.
 
-In an nutshell, I'm playing around with a format for describing Hypermedia APIs.  The goal is to identify
-the relevant resources, relations and actions in the API.  In addition to identifying the relevant
+In an nutshell, I'm playing around with a format for describing Hypermedia APIs. The goal is to identify
+the relevant resources, relations and actions in the API. In addition to identifying the relevant
 resources, relationa and actions additional details are provided in the descriptions (via
-JSON-Schema) of the "shape" of both resource data and action payloads.  From these descriptions, tools
+JSON-Schema) of the "shape" of both resource data and action payloads. From these descriptions, tools
 can be created that generate various things like type definitions, diagrams, run-time validation and
 domain specific client code.
 
@@ -31,12 +31,12 @@ of authentication, _etc._).
 ## Running
 
 If you have Node and `yarn` installed, all you really need to do to play around with this
-is run `yarn install` (to install all dependencies) and then run `yarn test`.
+is run `yarn install` (to install all dependencies) and then run `yarn start`.
 The tests are currently really slow (due to enormous snapshots in the tests).
-But running the tests will generate output in a directly called
-`./outputDirectory`. You can then play around with the contents of `sample.ts`
-and rerun the tests (which will then start to fail, but you can ignore that) and
-you'll get updated output in `./outputDirectory`.
+But running `yarn start` will process the profile information in the
+`./sampleProfile` directory and generate output in a directly called
+`./sampleProfile/output`. You can then play around with the contents of `./sampleProfile/profile.json`
+and rerun `yarn start` and you'll get updated output in `./sampleProfile/output`.
 
 ## Rationale
 
@@ -134,11 +134,11 @@ would be an instance of the `Profile` type defined in [`src/profile.ts`](https:/
 
 ### Sample Profile
 
-A simple profile can be found [here](https://github.com/xogeny/hyprofile/blob/master/sampleOutput/profile.json).
+A simple profile can be found [here](https://github.com/xogeny/hyprofile/blob/master/sampleProfile/profile.json).
 
 ### Documentation
 
-You can see a preview of generated documentation [here](https://htmlpreview.github.io/?https://github.com/xogeny/hyprofile/blob/master/sampleOutput/documentation.html).
+You can see a preview of generated documentation [here](https://htmlpreview.github.io/?https://github.com/xogeny/hyprofile/blob/master/sampleProfile/output/documentation.html).
 
 For each resource that is documented, all resources that are one edge (relation
 follow) away are also shown. At the end, all resources are combined in a single
@@ -148,11 +148,11 @@ diagram.
 
 The generated types associated with these resources, relations and actions can
 be found
-[here](https://github.com/xogeny/hyprofile/blob/master/sampleOutput/types.ts).
+[here](https://github.com/xogeny/hyprofile/blob/master/sampleProfile/output/types.ts).
 Note, they also appear inline in the documentation for reference.
 
 ### Resovled Schemas
 
 In order to avoid any runtime confusion (_e.g.,_ having `$ref` changes out from
 underneath you), all schemas are resolved at compile time and places in a single
-file. For our sample profile, they are collected [here](https://github.com/xogeny/hyprofile/blob/master/sampleOutput/schemas.json).
+file. For our sample profile, they are collected [here](https://github.com/xogeny/hyprofile/blob/master/sampleProfile/output/schemas.json).
