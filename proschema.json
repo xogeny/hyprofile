@@ -1,0 +1,388 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "ActionProfile": {
+            "properties": {
+                "deprecated": {
+                    "type": "boolean"
+                },
+                "fields": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/JSONSchema4"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": {
+                    "enum": [
+                        "DELETE",
+                        "GET",
+                        "OPTIONS",
+                        "PATCH",
+                        "POST",
+                        "PUT"
+                    ],
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ClassProfile": {
+            "properties": {
+                "actions": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/ActionProfile"
+                    },
+                    "type": "object"
+                },
+                "deprecated": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "properties": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/JSONSchema4"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "JSONSchema4": {
+            "additionalProperties": {
+            },
+            "description": "JSON Schema V4",
+            "properties": {
+                "$ref": {
+                    "type": "string"
+                },
+                "$schema": {
+                    "type": "string"
+                },
+                "additionalItems": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/JSONSchema4"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "May only be defined when \"items\" is defined, and is a tuple of JSONSchemas.\n\nThis provides a definition for additional items in an array instance\nwhen tuple definitions of the items is provided.  This can be false\nto indicate additional items in the array are not allowed, or it can\nbe a schema that defines the schema of the additional items."
+                },
+                "additionalProperties": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/JSONSchema4"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "This attribute defines a schema for all properties that are not\nexplicitly defined in an object type definition. If specified, the\nvalue MUST be a schema or a boolean. If false is provided, no\nadditional properties are allowed beyond the properties defined in\nthe schema. The default value is an empty schema which allows any\nvalue for additional properties."
+                },
+                "allOf": {
+                    "items": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "type": "array"
+                },
+                "anyOf": {
+                    "items": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "type": "array"
+                },
+                "default": {
+                    "anyOf": [
+                        {
+                            "additionalProperties": true,
+                            "properties": {
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "items": {
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": [
+                                "string",
+                                "number",
+                                "boolean"
+                            ]
+                        }
+                    ]
+                },
+                "definitions": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "type": "object"
+                },
+                "dependencies": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "$ref": "#/definitions/JSONSchema4"
+                            }
+                        ]
+                    },
+                    "type": "object"
+                },
+                "description": {
+                    "description": "This attribute is a string that provides a full description of the of\npurpose the instance property.",
+                    "type": "string"
+                },
+                "enum": {
+                    "description": "This provides an enumeration of all possible values that are valid\nfor the instance property. This MUST be an array, and each item in\nthe array represents a possible value for the instance value. If\nthis attribute is defined, the instance value MUST be one of the\nvalues in the array in order for the schema to be valid.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "additionalProperties": true,
+                                "properties": {
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "items": {
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": [
+                                    "string",
+                                    "number",
+                                    "boolean"
+                                ]
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "exclusiveMaximum": {
+                    "type": "boolean"
+                },
+                "exclusiveMinimum": {
+                    "type": "boolean"
+                },
+                "extends": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The value of this property MUST be another schema which will provide\na base schema which the current schema will inherit from.  The\ninheritance rules are such that any instance that is valid according\nto the current schema MUST be valid according to the referenced\nschema.  This MAY also be an array, in which case, the instance MUST\nbe valid for all the schemas in the array.  A schema that extends\nanother schema MAY define additional attributes, constrain existing\nattributes, or add other constraints.\n\nConceptually, the behavior of extends can be seen as validating an\ninstance against all constraints in the extending schema as well as\nthe extended schema(s)."
+                },
+                "id": {
+                    "type": "string"
+                },
+                "items": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/JSONSchema4"
+                        },
+                        {
+                            "items": {
+                                "$ref": "#/definitions/JSONSchema4"
+                            },
+                            "type": "array"
+                        }
+                    ],
+                    "description": "This attribute defines the allowed items in an instance array, and\nMUST be a schema or an array of schemas.  The default value is an\nempty schema which allows any value for items in the instance array.\n\nWhen this attribute value is a schema and the instance value is an\narray, then all the items in the array MUST be valid according to the\nschema.\n\nWhen this attribute value is an array of schemas and the instance\nvalue is an array, each position in the instance array MUST conform\nto the schema in the corresponding position for this array.  This\ncalled tuple typing.  When tuple typing is used, additional items are\nallowed, disallowed, or constrained by the \"additionalItems\"\n(Section 5.6) attribute using the same rules as\n\"additionalProperties\" (Section 5.4) for objects."
+                },
+                "maxItems": {
+                    "type": "number"
+                },
+                "maxLength": {
+                    "type": "number"
+                },
+                "maxProperties": {
+                    "type": "number"
+                },
+                "maximum": {
+                    "type": "number"
+                },
+                "minItems": {
+                    "type": "number"
+                },
+                "minLength": {
+                    "type": "number"
+                },
+                "minProperties": {
+                    "type": "number"
+                },
+                "minimum": {
+                    "type": "number"
+                },
+                "multipleOf": {
+                    "type": "number"
+                },
+                "not": {
+                    "$ref": "#/definitions/JSONSchema4"
+                },
+                "oneOf": {
+                    "items": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "type": "array"
+                },
+                "pattern": {
+                    "type": "string"
+                },
+                "patternProperties": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "description": "This attribute is an object that defines the schema for a set of\nproperty names of an object instance. The name of each property of\nthis attribute's object is a regular expression pattern in the ECMA\n262/Perl 5 format, while the value is a schema. If the pattern\nmatches the name of a property on the instance object, the value of\nthe instance's property MUST be valid against the pattern name's\nschema value.",
+                    "type": "object"
+                },
+                "properties": {
+                    "additionalProperties": {
+                        "$ref": "#/definitions/JSONSchema4"
+                    },
+                    "description": "This attribute is an object with property definitions that define the\nvalid values of instance object property values. When the instance\nvalue is an object, the property values of the instance object MUST\nconform to the property definitions in this object. In this object,\neach property definition's value MUST be a schema, and the property's\nname MUST be the name of the instance property that it defines.  The\ninstance property value MUST be valid according to the schema from\nthe property definition. Properties are considered unordered, the\norder of the instance properties MAY be in any order.",
+                    "type": "object"
+                },
+                "required": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "enum": [
+                                false
+                            ],
+                            "type": "boolean"
+                        }
+                    ],
+                    "description": "This attribute indicates if the instance must have a value, and not\nbe undefined. This is false by default, making the instance\noptional."
+                },
+                "title": {
+                    "description": "This attribute is a string that provides a short description of the\ninstance property.",
+                    "type": "string"
+                },
+                "type": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "enum": [
+                                    "any",
+                                    "array",
+                                    "boolean",
+                                    "integer",
+                                    "null",
+                                    "number",
+                                    "object",
+                                    "string"
+                                ],
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "enum": [
+                                "any",
+                                "array",
+                                "boolean",
+                                "integer",
+                                "null",
+                                "number",
+                                "object",
+                                "string"
+                            ],
+                            "type": "string"
+                        }
+                    ],
+                    "description": "A single type, or a union of simple types"
+                },
+                "uniqueItems": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "RelationProfile": {
+            "properties": {
+                "deprecated": {
+                    "type": "boolean"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "min": {
+                    "type": "number"
+                },
+                "to": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "relations": {
+            "additionalProperties": {
+                "items": {
+                    "$ref": "#/definitions/RelationProfile"
+                },
+                "type": "array"
+            },
+            "type": "object"
+        },
+        "resources": {
+            "additionalProperties": {
+                "$ref": "#/definitions/ClassProfile"
+            },
+            "type": "object"
+        },
+        "schemas": {
+            "additionalProperties": {
+                "$ref": "#/definitions/JSONSchema4"
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
+
