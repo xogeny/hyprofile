@@ -51,6 +51,7 @@ Object {
       "actions": Array [
         Object {
           "fields": Object {
+            "$schema": "http://json-schema.org/draft-04/schema",
             "additionalProperties": false,
             "properties": Object {
               "orderNumber": Object {

@@ -4,3 +4,4 @@ export * from "./elaborate";
 export * from "./documentation";
 export * from "./code";
 export * from "./schemas";
+export * from "./resolve";

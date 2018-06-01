@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "orderNumber": {
+            "type": "number",
+            "description": "Order number used to cross reference with database and accounting"
+        },
+        "itemCount": {
+            "type": "number"
+        },
+        "status": {
+            "type": "string",
+            "enum": ["submitted", "pending", "completed"]
+        }
+    },
+    "required": ["orderNumber", "itemCount", "status"],
+    "additionalProperties": false
+}

@@ -52,6 +52,10 @@
   version "10.0.0"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.0.0.tgz#c40f8e07dce607d3ef25a626b93a6a7cdcf97881"
 
+"@types/node@9.6.7":
+  version "9.6.7"
+  resolved "https://registry.npmjs.org/@types/node/-/node-9.6.7.tgz#5f3816d1db2155edcde1b2e3aa5d0e5c520cb564"
+
 "@types/node@^8.0.50":
   version "8.10.10"
   resolved "https://registry.npmjs.org/@types/node/-/node-8.10.10.tgz#fec07bc2ad549d9e6d2f7aa0fb0be3491b83163a"
@@ -1327,7 +1331,7 @@ glob2base@^0.0.12:
   dependencies:
     find-index "^0.1.1"
 
-glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.2:
   version "7.1.2"
   resolved "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -3514,9 +3518,22 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
+typescript-json-schema@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.npmjs.org/typescript-json-schema/-/typescript-json-schema-0.24.1.tgz#fb3db89f4d22abae86c4d170e5416315d72e0c27"
+  dependencies:
+    glob "~7.1.2"
+    json-stable-stringify "^1.0.1"
+    typescript "~2.8.3"
+    yargs "^11.0.0"
+
 typescript@^2.8.3:
   version "2.8.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-2.8.3.tgz#5d817f9b6f31bb871835f4edf0089f21abe6c170"
+
+typescript@~2.8.3:
+  version "2.8.4"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-2.8.4.tgz#0b1db68e6bdfb0b767fa2ab642136a35b059b199"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"

@@ -1,0 +1,21 @@
+<div><h1>Documentation</h1><h2>Resources</h2><div><h3>Resource: <code>order <span>(Online Order)</span> </code></h3><p>An order submitted via the e-commerce API</p><div style="display:flex"><div><h5>Type Definitions</h5><h6>Properties</h6><pre>export interface OrderProps {
+  /**
+   * Order number used to cross reference with database and accounting
+   */
+  orderNumber: number;
+  itemCount: number;
+  status: &quot;submitted&quot; | &quot;pending&quot; | &quot;completed&quot;;
+}
+</pre><h6>Payloads</h6><pre>export interface AddItemPayload {
+  orderNumber?: number;
+  productCode?: string;
+  quantity?: number;
+}
+</pre></div><div><h5>Diagram</h5><div></div></div></div></div><div><h3>Resource: <code>order-items  </code></h3><div style="display:flex"><div><h5>Type Definitions</h5><h6>Properties</h6><pre>export interface OrderItemsProps {
+  [k: string]: any;
+}
+</pre><h6>Payloads</h6><pre></pre></div><div><h5>Diagram</h5><div></div></div></div></div><div><h3>Resource: <code>customer  </code></h3><div style="display:flex"><div><h5>Type Definitions</h5><h6>Properties</h6><pre>export interface CustomerProps {
+  customerId: string;
+  name: string;
+}
+</pre><h6>Payloads</h6><pre></pre></div><div><h5>Diagram</h5><div></div></div></div></div><h3>Complete Resource-Relation Diagram</h3><div></div></div>

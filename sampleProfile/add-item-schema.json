@@ -1,0 +1,10 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "orderNumber": { "type": "number" },
+        "productCode": { "type": "string" },
+        "quantity": { "type": "number" }
+    },
+    "additionalProperties": false
+}

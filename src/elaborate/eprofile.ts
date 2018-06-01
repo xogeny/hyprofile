@@ -1,4 +1,5 @@
-import { Profile, ClassProfile, resolveSchema } from "../profile";
+import { Profile, ClassProfile } from "../profile";
+import { resolveSchema } from "../resolve";
 import { compile } from "json-schema-to-typescript";
 import { renderSVG } from "./diagrams";
 import { JSONSchema4 } from "json-schema";

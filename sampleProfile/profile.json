@@ -1,0 +1,67 @@
+{
+    "$schema": { "$ref": "../proschema.json" },
+    "resources": {
+        "order": {
+            "title": "Online Order",
+            "description": "An order submitted via the e-commerce API",
+            "properties": { "$ref": "./order-properties-schema.json" },
+            "actions": {
+                "add-item": {
+                    "title": "Add Item",
+                    "method": "POST",
+                    "type": "application/x-www-form-urlencoded",
+                    "fields": {
+                        "$ref": "./add-item-schema.json"
+                    }
+                }
+            }
+        },
+        "order-items": {},
+        "customer": {
+            "properties": { "$ref": "./customer-properties-schema.json" }
+        }
+    },
+    "relations": {
+        "collection": [
+            {
+                "from": "order",
+                "to": "order-items"
+            }
+        ],
+        "items": [
+            {
+                "from": "order",
+                "to": "order-items"
+            }
+        ],
+        "customer": [
+            {
+                "from": "order",
+                "to": "customer"
+            }
+        ],
+        "info": [
+            {
+                "from": "order",
+                "to": "customer"
+            }
+        ],
+        "next": [
+            {
+                "from": "order",
+                "to": "order",
+                "max": 1
+            }
+        ],
+        "prev": [
+            {
+                "from": "order",
+                "to": "order",
+                "max": 1
+            }
+        ]
+    },
+    "schemas": {
+        "customer-properties": { "$ref": "./customer-properties-schema.json" }
+    }
+}

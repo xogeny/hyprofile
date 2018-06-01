@@ -154,7 +154,9 @@ Country: US
                     \\"title\\": \\"Add Item\\",
                     \\"method\\": \\"POST\\",
                     \\"type\\": \\"application/x-www-form-urlencoded\\",
-                    \\"fields\\": \\"add-item\\"
+                    \\"fields\\": {
+                        \\"$ref\\": \\"./hyprofile/add-item-schema.json\\"
+                    }
                 }
             }
         },
@@ -268,6 +270,7 @@ Country: US
             },
             \\"actionSchemas\\": {
                 \\"add-item\\": {
+                    \\"$schema\\": \\"http://json-schema.org/draft-04/schema\\",
                     \\"type\\": \\"object\\",
                     \\"properties\\": {
                         \\"orderNumber\\": {

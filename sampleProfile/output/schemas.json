@@ -1,0 +1,75 @@
+{
+    "resources": {
+        "order": {
+            "propSchema": {
+                "$schema": "http://json-schema.org/draft-04/schema",
+                "type": "object",
+                "properties": {
+                    "orderNumber": {
+                        "type": "number",
+                        "description": "Order number used to cross reference with database and accounting"
+                    },
+                    "itemCount": {
+                        "type": "number"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "submitted",
+                            "pending",
+                            "completed"
+                        ]
+                    }
+                },
+                "required": [
+                    "orderNumber",
+                    "itemCount",
+                    "status"
+                ],
+                "additionalProperties": false
+            },
+            "actionSchemas": {
+                "add-item": {
+                    "$schema": "http://json-schema.org/draft-04/schema",
+                    "type": "object",
+                    "properties": {
+                        "orderNumber": {
+                            "type": "number"
+                        },
+                        "productCode": {
+                            "type": "string"
+                        },
+                        "quantity": {
+                            "type": "number"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        },
+        "order-items": {
+            "propSchema": {},
+            "actionSchemas": {}
+        },
+        "customer": {
+            "propSchema": {
+                "$schema": "http://json-schema.org/draft-04/schema",
+                "type": "object",
+                "properties": {
+                    "customerId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "customerId",
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "actionSchemas": {}
+        }
+    }
+}

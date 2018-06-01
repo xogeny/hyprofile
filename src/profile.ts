@@ -1,9 +1,11 @@
 import { JSONSchema4 } from "json-schema";
-import { dereference } from "json-schema-to-typescript/dist/src/resolver";
 
 export type Schema = JSONSchema4 | string;
+// export type Schema = {};
+// export type JSONSchema4 = {};
 
 export interface Profile {
+    $schema?: string; // Should point to proschema.json in root of this repo for intellisense
     resources?: { [className: string]: ClassProfile };
     relations?: { [rel: string]: Array<RelationProfile> };
     schemas?: { [schema: string]: JSONSchema4 };
@@ -31,17 +33,4 @@ export interface RelationProfile {
     deprecated?: boolean;
     min?: number;
     max?: number;
-}
-
-export function resolveSchema(schema: Schema, profile: Profile): Promise<JSONSchema4> {
-    if (typeof schema === "string") {
-        let id = schema;
-        if (profile.schemas) {
-            schema = profile.schemas[id];
-            return dereference(schema, process.cwd());
-        } else {
-            throw new Error("No local schema for " + id);
-        }
-    }
-    return dereference(schema, process.cwd());
 }
