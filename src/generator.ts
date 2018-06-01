@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 
+import debug from "debug";
+const debugWriter = debug("hyprofile:writer");
+
 export interface Generator {
     writeFile(filename: string, contents: string): Promise<void>;
 }
@@ -11,9 +14,14 @@ export class FileWriter implements Generator {
         return new Promise<void>((resolve, reject) => {
             let file = path.join(this.directory, filename);
             fs.writeFile(file, contents, err => {
-                console.log("File " + file + " written: ", err);
-                if (err) reject(err);
-                else resolve(undefined);
+                if (err) {
+                    console.error(`Error while writing ${file}: ${err}`);
+                    reject(err);
+                } else {
+                    debugWriter("File %s written", file);
+                    debugWriter("  Contents: %s", contents);
+                    resolve(undefined);
+                }
             });
         });
     }

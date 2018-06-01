@@ -7,9 +7,6 @@ import { generateDocumentation } from "../documentation";
 import { generateCode } from "../code";
 import { generateSchemas } from "../schemas";
 
-console.log("args = ", args);
-console.log("__dirname = ", __dirname);
-
 if (args.length != 4) {
     console.error("Usage: hyprofile PROFILE OUTPUT_DIRECTORY");
     process.exit(1);
@@ -19,15 +16,13 @@ const profile = path.resolve(args[2]);
 const workdir = path.dirname(profile);
 const outdir = path.resolve(args[3]);
 
-console.log("Profile file: ", profile);
-console.log("Working directory: ", workdir);
 const profileData = fs.readFileSync(profile);
 const profileObject = JSON.parse(profileData.toString());
 
 async function run() {
-    process.chdir(workdir);
+    // process.chdir(workdir);
     let generator = new FileWriter(outdir);
-    let eprofile = await elaborate(profileObject);
+    let eprofile = await elaborate(profileObject, workdir);
     await generator.writeFile("profile.json", JSON.stringify(profile, null, 4));
     await generateDocumentation(eprofile, generator);
     await generateCode(eprofile, generator);

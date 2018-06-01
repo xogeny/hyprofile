@@ -24,7 +24,7 @@ export namespace Samples {
                         title: "Add Item",
                         method: "POST",
                         type: "application/x-www-form-urlencoded",
-                        fields: { $ref: "./hyprofile/add-item-schema.json" },
+                        fields: { $ref: "./sampleProfile/add-item-schema.json" },
                     },
                 },
             },

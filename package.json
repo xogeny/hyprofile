@@ -5,6 +5,7 @@
     "main": "lib/src/index.js",
     "typings": "lib/src/index.d.ts",
     "scripts": {
+        "start": "yarn sample1",
         "compile": "tsc",
         "ex1": "denada ./example1.hyp -g hyprofile.dnd",
         "genschema": "typescript-json-schema src/profile.ts Profile -o proschema.json",
@@ -15,6 +16,7 @@
     "author": "Michael M. Tiller",
     "license": "MIT",
     "devDependencies": {
+        "@types/debug": "^0.0.30",
         "@types/jest": "^22.2.3",
         "@types/node": "9.6.7",
         "@types/react": "^16.3.13",
@@ -28,6 +30,7 @@
         "@types/camelcase": "^4.1.0",
         "@xogeny/ts-schema": "^0.1.0",
         "camelcase": "^5.0.0",
+        "debug": "^3.1.0",
         "denada": "0.9.0-rc3",
         "json-schema-to-typescript": "^5.4.0",
         "node-plantuml": "^0.6.2",

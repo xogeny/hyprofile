@@ -7,7 +7,7 @@ describe("Test Documentation Generation", () => {
     it("should generate documentation for sample profile", async () => {
         let profile = hyprofile.Samples.sample1;
         let generator = new MemoryWriter("outputDirectory");
-        let eprofile = await hyprofile.elaborate(profile);
+        let eprofile = await hyprofile.elaborate(profile, process.cwd());
         await generator.writeFile("profile.json", JSON.stringify(profile, null, 4));
         await hyprofile.generateDocumentation(eprofile, generator);
         await hyprofile.generateCode(eprofile, generator);

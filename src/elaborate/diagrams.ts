@@ -2,10 +2,12 @@ import { ElaboratedProfile } from "./eprofile";
 const stb = require("stream-to-buffer");
 const plantuml = require("node-plantuml");
 
+import debug from "debug";
+const debugSVG = debug("hyprofile:svg");
+
 async function streamToBuffer(stream: NodeJS.ReadStream): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
         stb(stream, (err: Error, buffer: Buffer) => {
-            console.log("Done");
             if (err) reject(err);
             else resolve(buffer);
         });
@@ -13,8 +15,11 @@ async function streamToBuffer(stream: NodeJS.ReadStream): Promise<Buffer> {
 }
 
 function generatePlantUML(profile: ElaboratedProfile, resname: RegExp): string {
+    debugSVG("Generating UML diagram for resources that match: %s", resname);
     let relations = profile.relations.filter(rel => resname.test(rel.to) || resname.test(rel.from));
     let resources = profile.resources.filter(res => resname.test(res.resource));
+    debugSVG("  Matching relations: %o", relations);
+    debugSVG("  Matching resources: %o", resources);
 
     let processName = (name: string) => `"${name}"`;
 
@@ -33,6 +38,7 @@ function generatePlantUML(profile: ElaboratedProfile, resname: RegExp): string {
         return `${processName(rel.from)} --> ${processName(rel.to)} : ${rel.rel}`;
     });
     let ret = [...classes, ...rels].join("\n");
+    debugSVG("  Generated UML: %s", ret);
     return ret;
 }
 
@@ -56,7 +62,11 @@ export function generateDummyPlantUML(profile: ElaboratedProfile, resname: RegEx
 }
 
 export async function renderSVG(profile: ElaboratedProfile, resname: RegExp): Promise<string> {
-    let puml = plantuml.generate(generatePlantUML(profile, resname), { format: "svg" });
+    const uml = generatePlantUML(profile, resname);
+    debugSVG("UML: %s", uml);
+    let puml = plantuml.generate(uml, { format: "svg" });
     let svg = await streamToBuffer(puml.out);
-    return svg.toString();
+    let ret = svg.toString();
+    debugSVG("  Generated SVG: %s", ret);
+    return ret;
 }

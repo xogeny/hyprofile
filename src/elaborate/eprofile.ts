@@ -47,7 +47,7 @@ function resourceName(resname: string): string {
     return resname;
 }
 
-export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
+export async function elaborate(profile: Profile, cwd: string): Promise<ElaboratedProfile> {
     let ret: ElaboratedProfile = {
         resources: [],
         relations: [],
@@ -58,7 +58,7 @@ export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
         for (let key of resources) {
             let resname = resourceName(key);
             let cp: ClassProfile = profile.resources[key];
-            let schema = await resolveSchema(cp.properties || {}, profile);
+            let schema = await resolveSchema(cp.properties || {}, profile, cwd);
             let type = await compile(schema, `${resname}-props`, {
                 bannerComment: "",
             });
@@ -84,7 +84,7 @@ export async function elaborate(profile: Profile): Promise<ElaboratedProfile> {
                     actionIds.map(async action => {
                         let act = cacts[action];
                         let fields: JSONSchema4 = act.fields
-                            ? await resolveSchema(act.fields, profile)
+                            ? await resolveSchema(act.fields, profile, cwd)
                             : { type: "object", additionalProperties: true };
                         return {
                             id: action,
